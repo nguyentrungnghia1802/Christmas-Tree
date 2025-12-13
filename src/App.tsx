@@ -804,8 +804,8 @@ const GestureController = ({ onGesture, onMove, onStatus, debugMode }: any) => {
 export default function GrandTreeApp() {
   const [sceneState, setSceneState] = useState<"CHAOS" | "FORMED">("CHAOS");
   const [rotationSpeed, setRotationSpeed] = useState(0);
-  const [aiStatus, setAiStatus] = useState("INITIALIZING...");
-  const [debugMode, setDebugMode] = useState(false);
+  const [_aiStatus, setAiStatus] = useState("INITIALIZING...");
+  const [debugMode, _setDebugMode] = useState(false);
 
   return (
     <div
