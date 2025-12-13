@@ -22,10 +22,10 @@ import {
 
 const TOTAL_NUMBERED_PHOTOS = 31;
 const bodyPhotoPaths = [
-  "/photos/top.png",
+  "./photos/top.png",
   ...Array.from(
     { length: TOTAL_NUMBERED_PHOTOS },
-    (_, i) => `/photos/${i + 1}.png`
+    (_, i) => `./photos/${i + 1}.png`
   ),
 ];
 
