@@ -31,15 +31,7 @@ function Home() {
         textShadow: '2px 2px 10px rgba(255, 255, 255, 0.3)',
         animation: 'twinkle 2s infinite'
       }}>
-        Merry Christmas!{' '}
-        <button
-          style={{ cursor: 'pointer', display: 'inline-block', background: 'none', border: 'none', fontSize: 'inherit', padding: 0 }}
-          title={`Đi đến cây thông Noel 3D - ${currentSource.name}`}
-          onClick={handleTreeClick}
-          aria-label={`Đi đến cây thông Noel 3D - ${currentSource.name}`}
-        >
-          🎄
-        </button>
+        Merry Christmas! 🎄
       </h1>
       {/* Hiển thị tên người nhận nếu có */}
       {currentSource.name && (
@@ -67,7 +59,7 @@ function Home() {
           50% { opacity: 0.3; }
         }
       `}</style>
-      <div style={{ cursor: 'pointer', display: 'inline-block' }}>
+      <div style={{ cursor: 'pointer', display: 'inline-block' }} onClick={handleTreeClick} title={`Đi đến cây thông Noel 3D - ${currentSource.name}`}> 
         <div style={{ position: 'relative', display: 'inline-block', margin: '20px auto' }}>
           <div style={{ fontSize: '3rem', position: 'relative', zIndex: 10, animation: 'rotate 3s linear infinite' }}>⭐</div>
           <div style={{ 
