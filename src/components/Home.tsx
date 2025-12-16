@@ -1,11 +1,18 @@
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { getTreeSource } from '../treeConfig';
 
 function Home() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  
+  // Lấy source từ URL query parameter
+  const sourceParam = searchParams.get('source');
+  const sourceIndex = sourceParam ? parseInt(sourceParam, 10) : 0;
+  const currentSource = getTreeSource(sourceIndex);
 
   const handleTreeClick = () => {
-    navigate('/christmas-tree');
+    // Chuyển sang christmas-tree với cùng source parameter
+    navigate(`/christmas-tree?source=${sourceIndex}`);
   };
 
   return (
@@ -27,13 +34,25 @@ function Home() {
         Merry Christmas!{' '}
         <button
           style={{ cursor: 'pointer', display: 'inline-block', background: 'none', border: 'none', fontSize: 'inherit', padding: 0 }}
-          title="Đi đến trang cây thông Noel 3D"
+          title={`Đi đến cây thông Noel 3D - ${currentSource.name}`}
           onClick={handleTreeClick}
-          aria-label="Đi đến trang cây thông Noel 3D"
+          aria-label={`Đi đến cây thông Noel 3D - ${currentSource.name}`}
         >
           🎄
         </button>
       </h1>
+      {/* Hiển thị tên người nhận nếu có */}
+      {currentSource.name && (
+        <p style={{
+          fontSize: '1.5rem',
+          color: '#FFD700',
+          marginTop: '-20px',
+          marginBottom: '20px',
+          textShadow: '1px 1px 5px rgba(255, 215, 0, 0.5)'
+        }}>
+          🎁 Dành tặng: <strong>{currentSource.name}</strong>
+        </p>
+      )}
       <style>{`
         @keyframes twinkle {
           0%, 100% { opacity: 1; }

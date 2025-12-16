@@ -45,7 +45,7 @@ export const treeSources: TreeSource[] = [
 
   // Nguồn 1:
   {
-    name: "minh-trang",
+    name: "Minh Trang",
     topPhoto: `${photoBasePath}/minh-trang/top.png`,
     numberedPhotos: Array.from(
       { length: 31 },
@@ -55,7 +55,7 @@ export const treeSources: TreeSource[] = [
 
   // Nguồn 2: 
   {
-    name: "ntec",
+    name: "NTEC",
     topPhoto: `${photoBasePath}/ntec/top.png`,
     numberedPhotos: Array.from(
       { length: 31 },
