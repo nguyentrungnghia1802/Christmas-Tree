@@ -34,3 +34,11 @@ Các file build sẽ được tạo trong thư mục `dist/`.
 - TypeScript
 - Vite
 - CSS3 với animatio
+
+### Ma doi ten file
+``` js
+$i=1; Get-ChildItem | Sort-Object Name | ForEach-Object {
+Rename-Item $_ -NewName "$i$($_.Extension)"
+$i++
+}
+```
