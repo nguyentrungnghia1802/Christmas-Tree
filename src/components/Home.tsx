@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getTreeSource } from '../treeConfig';
 
 function Home() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [showModal, setShowModal] = useState(false);
   
   // Lấy source từ URL query parameter
   const sourceParam = searchParams.get('source');
@@ -11,8 +13,18 @@ function Home() {
   const currentSource = getTreeSource(sourceIndex);
 
   const handleTreeClick = () => {
-    // Chuyển sang christmas-tree với cùng source parameter
+    // Hiển thị modal hướng dẫn
+    setShowModal(true);
+  };
+
+  const handleOk = () => {
+    // Đóng modal và chuyển sang christmas-tree với cùng source parameter
+    setShowModal(false);
     navigate(`/christmas-tree?source=${sourceIndex}`);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -114,6 +126,147 @@ function Home() {
           </div>
         </div>
       </div>
+
+      {/* Modal hướng dẫn */}
+      {showModal && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 1000,
+            padding: '20px',
+            animation: 'fadeIn 0.3s ease-in-out'
+          }}
+          onClick={handleCloseModal}
+        >
+          <div
+            style={{
+              backgroundColor: '#fff',
+              borderRadius: '20px',
+              padding: '30px',
+              maxWidth: '600px',
+              width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)',
+              position: 'relative',
+              animation: 'slideIn 0.3s ease-out'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 style={{
+              fontSize: 'clamp(1.5rem, 5vw, 2rem)',
+              color: '#2d5016',
+              marginBottom: '20px',
+              textAlign: 'center',
+              fontWeight: 'bold'
+            }}>
+              🎄 Hướng Dẫn Sử Dụng 🎄
+            </h2>
+            
+            <div style={{
+              fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
+              lineHeight: '1.8',
+              color: '#333',
+              marginBottom: '25px'
+            }}>
+              <div style={{ marginBottom: '15px' }}>
+                <strong style={{ color: '#d32f2f', fontSize: 'clamp(1rem, 2.8vw, 1.15rem)' }}>
+                  📋 Bước 1:
+                </strong>
+                <p style={{ margin: '8px 0 0 0', paddingLeft: '10px' }}>
+                  Đợi một lúc để tải tài nguyên
+                </p>
+              </div>
+
+              <div style={{ marginBottom: '15px' }}>
+                <strong style={{ color: '#1976d2', fontSize: 'clamp(1rem, 2.8vw, 1.15rem)' }}>
+                  🤖 Bước 2:
+                </strong>
+                <p style={{ margin: '8px 0 0 0', paddingLeft: '10px' }}>
+                  Sau khi tải thành công thì bật AI lên sau đó cho phép camera
+                </p>
+              </div>
+
+              <div style={{ marginBottom: '15px' }}>
+                <strong style={{ color: '#388e3c', fontSize: 'clamp(1rem, 2.8vw, 1.15rem)' }}>
+                  ✋ Bước 3:
+                </strong>
+                <p style={{ margin: '8px 0 0 0', paddingLeft: '10px' }}>
+                  Xoè bàn tay rộng sau đó giơ trước camera, và đợi khoảng 5s
+                </p>
+              </div>
+
+              <div style={{ marginBottom: '15px' }}>
+                <strong style={{ color: '#f57c00', fontSize: 'clamp(1rem, 2.8vw, 1.15rem)' }}>
+                  ✊ Bước 4:
+                </strong>
+                <p style={{ margin: '8px 0 0 0', paddingLeft: '10px' }}>
+                  Xong rồi nắm nay lại thật nhanh, vẫn giơ trước camera nhé!!
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={handleOk}
+              style={{
+                width: '100%',
+                padding: '15px 30px',
+                fontSize: 'clamp(1rem, 3vw, 1.2rem)',
+                fontWeight: 'bold',
+                color: '#fff',
+                backgroundColor: '#2d5016',
+                border: 'none',
+                borderRadius: '10px',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 15px rgba(45, 80, 22, 0.3)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#3d6b1f';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(45, 80, 22, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#2d5016';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(45, 80, 22, 0.3)';
+              }}
+            >
+              OK - Bắt Đầu 🎅
+            </button>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideIn {
+          from {
+            transform: translateY(-50px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 }

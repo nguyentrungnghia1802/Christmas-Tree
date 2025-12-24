@@ -35,11 +35,11 @@ const photoBasePath = window.location.hostname === 'nguyentrungnghia1802.github.
 export const treeSources: TreeSource[] = [
   // Nguồn 0: Ảnh mặc định từ thư mục local
   {
-    name: "Default",
-    topPhoto: `${photoBasePath}/default/top.png`,
+    name: "you, a nice person",
+    topPhoto: `${photoBasePath}/noel/top.png`,
     numberedPhotos: Array.from(
       { length: 31 },
-      (_, i) => `${photoBasePath}/default/${i + 1}.png`
+      (_, i) => `${photoBasePath}/noel/${i + 1}.png`
     ),
   },
 
