@@ -127,6 +127,17 @@ function Home() {
         </div>
       </div>
 
+      {/* Ghi chú nhỏ */}
+      <p style={{
+        fontSize: '1.2rem',
+        color: '#FFD700',
+        marginTop: '20px',
+        textShadow: '1px 1px 5px rgba(255, 215, 0, 0.5)',
+        fontStyle: 'italic'
+      }}>
+        ✨ Nhấn vào cây thông để nhận bất ngờ ✨
+      </p>
+
       {/* Modal hướng dẫn */}
       {showModal && (
         <div
