@@ -42,7 +42,7 @@ function Home() {
           marginBottom: '20px',
           textShadow: '1px 1px 5px rgba(255, 215, 0, 0.5)'
         }}>
-          🎁 Dành tặng: <strong>{currentSource.name}</strong>
+          🎁 A special gift for <strong>{currentSource.name}</strong>
         </p>
       )}
       <style>{`
