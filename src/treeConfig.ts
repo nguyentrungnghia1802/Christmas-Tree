@@ -53,13 +53,23 @@ export const treeSources: TreeSource[] = [
     ),
   },
 
-  // Nguồn 2: 
+  // Nguồn 2:
   {
     name: "NTEC",
     topPhoto: `${photoBasePath}/ntec/top.png`,
     numberedPhotos: Array.from(
       { length: 31 },
       (_, i) => `${photoBasePath}/ntec/${i + 1}.jpg`
+    ),
+  },
+
+  // Nguồn 3:
+  {
+    name: "Mai San",
+    topPhoto: `${photoBasePath}/dao-mai/top.png`,
+    numberedPhotos: Array.from(
+      { length: 31 },
+      (_, i) => `${photoBasePath}/dao-mai/${i + 1}.png`
     ),
   },
 ];
