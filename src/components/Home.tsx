@@ -38,7 +38,7 @@ function Home() {
       alignItems: 'center'
     }}>
       <h1 style={{
-        fontSize: '3rem',
+        fontSize: '3.5rem',
         marginBottom: '40px',
         textShadow: '2px 2px 10px rgba(255, 255, 255, 0.3)',
         animation: 'twinkle 2s infinite'
