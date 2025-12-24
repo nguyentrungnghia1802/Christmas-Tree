@@ -301,6 +301,8 @@ const PhotoOrnaments = ({ state }: { state: "CHAOS" | "FORMED" }) => {
               {/* @ts-ignore */}
               <meshStandardMaterial
                 /* @ts-ignore */ map={textures[obj.textureIndex]}
+                /* @ts-ignore */ transparent={true}
+                /* @ts-ignore */ alphaTest={0.5}
                 /* @ts-ignore */ roughness={0.5}
                 /* @ts-ignore */ metalness={0}
                 /* @ts-ignore */ emissive={CONFIG.colors.white}
@@ -333,6 +335,8 @@ const PhotoOrnaments = ({ state }: { state: "CHAOS" | "FORMED" }) => {
               {/* @ts-ignore */}
               <meshStandardMaterial
                 /* @ts-ignore */ map={textures[obj.textureIndex]}
+                /* @ts-ignore */ transparent={true}
+                /* @ts-ignore */ alphaTest={0.5}
                 /* @ts-ignore */ roughness={0.5}
                 /* @ts-ignore */ metalness={0}
                 /* @ts-ignore */ emissive={CONFIG.colors.white}
