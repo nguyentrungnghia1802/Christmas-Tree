@@ -22,6 +22,46 @@ import {
 } from "@mediapipe/tasks-vision";
 import { getTreeSource, getAllPhotoPaths } from "../treeConfig";
 
+// Translation helper
+const translations = {
+  vi: {
+    loading: "🎄 Loading Christmas Magic... 🎄",
+    aiDisabled: "AI DISABLED (Better Performance)",
+    downloading: "DOWNLOADING AI...",
+    requesting: "REQUESTING CAMERA...",
+    ready: "AI READY: SHOW HAND",
+    errorCamera: "ERROR: CAMERA PERMISSION DENIED",
+    errorModel: "MODEL FAILED",
+    detected: "DETECTED",
+    noHand: "AI READY: NO HAND",
+    aiOn: "🤖 AI: ON",
+    aiOff: "🤖 AI: OFF"
+  },
+  ja: {
+    loading: "🎄 クリスマスの魔法を読み込み中... 🎄",
+    aiDisabled: "AI無効（パフォーマンス向上）",
+    downloading: "AIをダウンロード中...",
+    requesting: "カメラを要求中...",
+    ready: "AI準備完了：手を見せてください",
+    errorCamera: "エラー：カメラの許可が拒否されました",
+    errorModel: "モデルの読み込みに失敗しました",
+    detected: "検出されました",
+    noHand: "AI準備完了：手が見つかりません",
+    aiOn: "🤖 AI: オン",
+    aiOff: "🤖 AI: オフ"
+  }
+};
+
+// Detect language from URL
+const getLanguage = (): 'vi' | 'ja' => {
+  return window.location.pathname.includes('/jp') ? 'ja' : 'vi';
+};
+
+const t = (key: keyof typeof translations.vi): string => {
+  const lang = getLanguage();
+  return translations[lang][key];
+};
+
 // Lấy source index từ URL query parameter (mặc định là 0)
 const getSourceIndexFromURL = (): number => {
   const params = new URLSearchParams(window.location.search);
@@ -652,7 +692,7 @@ const LoadingScreen = () => {
             textShadow: "0 0 10px rgba(255, 215, 0, 0.5)",
           }}
         >
-          🎄 Loading Christmas Magic... 🎄
+          {t('loading')}
         </div>
         <div
           style={{
@@ -786,7 +826,7 @@ const GestureController = ({
 
   useEffect(() => {
     if (!enabled) {
-      onStatus("AI DISABLED (Better Performance)");
+      onStatus(t('aiDisabled'));
       return;
     }
 
@@ -794,7 +834,7 @@ const GestureController = ({
     let requestRef: number;
 
     const setup = async () => {
-      onStatus("DOWNLOADING AI...");
+      onStatus(t('downloading'));
       try {
         const vision = await FilesetResolver.forVisionTasks(
           "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
@@ -808,7 +848,7 @@ const GestureController = ({
           runningMode: "VIDEO",
           numHands: 1,
         });
-        onStatus("REQUESTING CAMERA...");
+        onStatus(t('requesting'));
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
           const stream = await navigator.mediaDevices.getUserMedia({
             video: true,
@@ -816,14 +856,14 @@ const GestureController = ({
           if (videoRef.current) {
             videoRef.current.srcObject = stream;
             videoRef.current.play();
-            onStatus("AI READY: SHOW HAND");
+            onStatus(t('ready'));
             predictWebcam();
           }
         } else {
-          onStatus("ERROR: CAMERA PERMISSION DENIED");
+          onStatus(t('errorCamera'));
         }
       } catch (err: any) {
-        onStatus(`ERROR: ${err.message || "MODEL FAILED"}`);
+        onStatus(`ERROR: ${err.message || t('errorModel')}`);
       }
     };
 
@@ -871,7 +911,7 @@ const GestureController = ({
             if (score > 0.4) {
               if (name === "Open_Palm") onGesture("CHAOS");
               if (name === "Closed_Fist") onGesture("FORMED");
-              if (debugMode) onStatus(`DETECTED: ${name}`);
+              if (debugMode) onStatus(`${t('detected')}: ${name}`);
             }
             if (results.landmarks.length > 0) {
               const speed = (0.5 - results.landmarks[0][0].x) * 0.15;
@@ -879,7 +919,7 @@ const GestureController = ({
             }
           } else {
             onMove(0);
-            if (debugMode) onStatus("AI READY: NO HAND");
+            if (debugMode) onStatus(t('noHand'));
           }
         }
         requestRef = requestAnimationFrame(predictWebcam);
@@ -930,7 +970,7 @@ const GestureController = ({
 export default function ChristmasTree3D() {
   const [sceneState, setSceneState] = useState<"CHAOS" | "FORMED">("CHAOS");
   const [rotationSpeed, setRotationSpeed] = useState(0);
-  const [_aiStatus, setAiStatus] = useState("INITIALIZING...");
+  const [_aiStatus, setAiStatus] = useState(t('downloading'));
   const [debugMode, _setDebugMode] = useState(false);
   const [aiEnabled, setAiEnabled] = useState(false); // AI tắt mặc định để load nhanh
 
@@ -1007,7 +1047,7 @@ export default function ChristmasTree3D() {
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
           }}
         >
-          {aiEnabled ? "🤖 AI: ON" : "🤖 AI: OFF"}
+          {aiEnabled ? t('aiOn') : t('aiOff')}
         </button>
       </div>
     </div>
