@@ -1,5 +1,7 @@
 # Cây Thông Noel 🎄
 
+Link: [https://nguyentrungnghia1802.github.io/Christmas-Tree/](https://nguyentrungnghia1802.github.io/Christmas-Tree/)
+
 Dự án web tĩnh đơn giản với cây thông Noel được xây dựng bằng React và TypeScript.
 
 ## Tính năng
